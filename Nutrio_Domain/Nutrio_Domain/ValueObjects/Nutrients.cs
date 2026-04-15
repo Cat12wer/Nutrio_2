@@ -1,4 +1,5 @@
 ﻿using Nutrio.Domain.Common;
+using Nutrio.Domain.Exceptions;
 
 namespace Nutrio.Domain.ValueObjects;
 
@@ -14,7 +15,7 @@ public class Nutrients : ValueObject
     {
         // Валідація: нутрієнти не можуть бути від'ємними (порада з аналізу макету)
         if (calories < 0 || protein < 0 || fat < 0 || carbs < 0 || fiber < 0)
-            throw new DomainException("Показники поживних речовин не можуть бути від'ємними.");
+            throw new InvalidNutrientsException("Показники поживних речовин не можуть бути від'ємними.");
 
         Calories = calories;
         Protein = protein;

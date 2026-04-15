@@ -32,7 +32,7 @@ public class User : Entity<Guid>
         Sex = sex;
     }
 
-    [cite_start]// Доменна логіка: Розрахунок віку для TDEE [cite: 30]
+    // Доменна логіка: Розрахунок віку для TDEE [cite: 30]
     public int GetAge()
     {
         var today = DateTime.Today;

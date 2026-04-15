@@ -25,7 +25,7 @@ public class FoodEntry : Entity<Guid>
         MealType = mealType;
     }
 
-    [cite_start]// Динамічний розрахунок нутрієнтів "на льоту" для дашборду [cite: 86, 122]
+   // Динамічний розрахунок нутрієнтів "на льоту" для дашборду [cite: 86, 122]
     public Nutrients GetTotalNutrients()
     {
         return Product.NutrientsPer100g.MultiplyByQuantity((int)Quantity.Value);
