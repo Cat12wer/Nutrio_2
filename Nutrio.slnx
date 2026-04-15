@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Nutrio/Nutrio_API.csproj" />
+  <Project Path="Nutrio_Domain/Nutrio_Domain/Nutrio.Domain.csproj" />
+</Solution>

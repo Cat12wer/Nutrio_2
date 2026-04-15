@@ -1,0 +1,6 @@
+@Nutrio_HostAddress = http://localhost:5250
+
+GET {{Nutrio_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
