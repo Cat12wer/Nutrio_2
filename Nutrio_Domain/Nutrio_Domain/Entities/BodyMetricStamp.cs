@@ -18,4 +18,6 @@ public class BodyMetricStamp : Entity<Guid>
         Metrics = metrics;
         FatPercent = fatPercent;
     }
+
+    private BodyMetricStamp() { }
 }

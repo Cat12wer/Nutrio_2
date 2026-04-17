@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Exceptions\Business Rule Exceptions\" />
     <Folder Include="Exceptions\Authorization Exceptions\" />
+    <Folder Include="Exceptions\Not Found Exceptions\" />
   </ItemGroup>
 
 </Project>

@@ -14,4 +14,6 @@ public class Product : Entity<int>
         ProductName = productName;
         NutrientsPer100g = nutrients;
     }
+
+    private Product() { }
 }
