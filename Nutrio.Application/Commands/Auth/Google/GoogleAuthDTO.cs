@@ -3,6 +3,6 @@ using Nutrio.Application.DTOs;
 
 namespace Nutrio.Application.Commands.Auth.Google;
 
-public record GoogleAuthCommand(
+public record GoogleAuthDTO(
     string GoogleToken
 ) : IRequest<AuthResultDto>;

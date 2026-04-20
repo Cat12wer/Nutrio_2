@@ -84,6 +84,8 @@ public class User : Entity<Guid>
 
     // Метод для оновлення профілю після онбордингу
     public void CompleteOnboarding(
+        string Name,
+        string LastName,
         Sex sex, 
         DateTime dateOfBirth, 
         decimal targetWeight, 

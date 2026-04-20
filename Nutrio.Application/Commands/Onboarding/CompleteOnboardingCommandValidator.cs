@@ -2,7 +2,7 @@
 
 namespace Nutrio.Application.Commands.Users.CompleteOnboarding;
 
-public class CompleteOnboardingCommandValidator : AbstractValidator<CompleteOnboardingCommand>
+public class CompleteOnboardingCommandValidator : AbstractValidator<CompleteOnboardingDTO>
 {
     public CompleteOnboardingCommandValidator()
     {

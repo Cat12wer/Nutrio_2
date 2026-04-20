@@ -9,7 +9,7 @@ using Nutrio.Domain.ValueObjects;
 
 namespace Nutrio.Application.Commands.Auth.GoogleAuth;
 
-public class GoogleAuthCommandHandler : IRequestHandler<GoogleAuthCommand, AuthResultDto>
+public class GoogleAuthCommandHandler : IRequestHandler<GoogleAuthDTO, AuthResultDto>
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
@@ -25,7 +25,7 @@ public class GoogleAuthCommandHandler : IRequestHandler<GoogleAuthCommand, AuthR
         _googleTokenValidator = googleTokenValidator;
     }
 
-    public async Task<AuthResultDto> Handle(GoogleAuthCommand request, CancellationToken cancellationToken)
+    public async Task<AuthResultDto> Handle(GoogleAuthDTO request, CancellationToken cancellationToken)
     {
         // 1. Перевіряємо Google Token та отримуємо дані користувача
         var googleUser = await _googleTokenValidator.ValidateAsync(request.GoogleToken, cancellationToken);

@@ -5,7 +5,7 @@ using Nutrio.Domain.ValueObjects;
 
 namespace Nutrio.Application.Commands.Users.CompleteOnboarding;
 
-public class CompleteOnboardingCommandHandler : IRequestHandler<CompleteOnboardingCommand, decimal>
+public class CompleteOnboardingCommandHandler : IRequestHandler<CompleteOnboardingDTO, decimal>
 {
     private readonly IUserRepository _userRepository;
     private readonly IBodyMetricRepository _bodyMetricRepository;
@@ -18,7 +18,7 @@ public class CompleteOnboardingCommandHandler : IRequestHandler<CompleteOnboardi
         _bodyMetricRepository = bodyMetricRepository;
     }
 
-    public async Task<decimal> Handle(CompleteOnboardingCommand request, CancellationToken cancellationToken)
+    public async Task<decimal> Handle(CompleteOnboardingDTO request, CancellationToken cancellationToken)
     {
         // 1. Отримуємо користувача з бази
         var user = await _userRepository.GetByIdAsync(request.UserId);
