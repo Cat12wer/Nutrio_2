@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Nutrio_Domain\Nutrio_Domain\Nutrio.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\Analytics\CaloriesChart\" />
-  </ItemGroup>
-
 </Project>

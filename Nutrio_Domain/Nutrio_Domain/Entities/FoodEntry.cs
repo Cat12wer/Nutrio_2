@@ -30,7 +30,10 @@ public class FoodEntry : Entity<Guid>
     {
         return Product.NutrientsPer100g.MultiplyByQuantity((int)Quantity.Value);
     }
-
+    public void UpdateQuantity(Quantity newQuantity)
+    {
+        Quantity = newQuantity;
+    }
     private FoodEntry() { }
 
 }

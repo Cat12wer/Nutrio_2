@@ -99,5 +99,13 @@ public class User : Entity<Guid>
         ActivityLevel = activityLevel;
     }
 
+    // Метод для редагування профілю з налаштувань
+    public void UpdateProfile(decimal targetWeight, WeightGoal weightGoal, ActivityLevel activityLevel)
+    {
+        TargetWeight = targetWeight;
+        WeightGoal = weightGoal;
+        ActivityLevel = activityLevel;
+    }
+
     private User() { }
 }
