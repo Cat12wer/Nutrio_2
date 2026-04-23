@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Nutrio.Application/Nutrio.Application.csproj" />
+  <Project Path="Nutrio.IInfrastructure/Nutrio.Infrastructure.csproj" Id="0522129d-3ca1-4bee-b600-7806268aee6e" />
   <Project Path="Nutrio/Nutrio_API.csproj" />
   <Project Path="Nutrio_Domain/Nutrio_Domain/Nutrio.Domain.csproj" />
 </Solution>

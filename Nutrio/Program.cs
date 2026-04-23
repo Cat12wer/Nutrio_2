@@ -1,3 +1,4 @@
+using Nutrio.Infrastructure;
 
 namespace Nutrio
 {
@@ -6,6 +7,8 @@ namespace Nutrio
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddInfrastructure(builder.Configuration);
 
             // Add services to the container.
             builder.Services.AddAuthorization();

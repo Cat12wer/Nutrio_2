@@ -16,6 +16,8 @@ public class User : Entity<Guid>
     public ActivityLevel ActivityLevel { get; private set; }
     public WeightGoal WeightGoal { get; private set; }
 
+    public string? GoogleId { get; private set; }
+
     // Колекції для зв'язків
     private readonly List<FoodEntry> _foodEntries = new();
     public IReadOnlyCollection<FoodEntry> FoodEntries => _foodEntries.AsReadOnly();
@@ -105,6 +107,18 @@ public class User : Entity<Guid>
         TargetWeight = targetWeight;
         WeightGoal = weightGoal;
         ActivityLevel = activityLevel;
+    }
+
+    public User(string name, string lastName, Email email, string googleId)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+        LastName = lastName;
+        Email = email;
+        GoogleId = googleId;
+        HashPassword = string.Empty; // Для Google пароль не потрібен
+        DateOfBirth = DateTime.MinValue;
+        Sex = Sex.Other;
     }
 
     private User() { }
