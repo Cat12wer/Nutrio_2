@@ -29,13 +29,14 @@ public class CompleteOnboardingCommandHandler : IRequestHandler<CompleteOnboardi
 
         // 2. Оновлюємо дані користувача (додамо цей метод у домен нижче)
         user.CompleteOnboarding(
-            request.Sex,
-            request.DateOfBirth,
-            request.TargetWeight,
-            request.WeightGoal,
-            request.ActivityLevel
+         request.Name,
+          request.LastName,
+          request.Sex,
+          request.DateOfBirth,
+          request.TargetWeight,
+          request.WeightGoal,
+         request.ActivityLevel
         );
-
         _userRepository.Update(user);
 
         // 3. Створюємо перший запис про заміри тіла (BodyMetricStamp)
