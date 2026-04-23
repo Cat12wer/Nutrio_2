@@ -1,3 +1,6 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Nutrio.Infrastructure;
 
 namespace Nutrio
@@ -8,17 +11,31 @@ namespace Nutrio
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Підключаємо наш шар інфраструктури
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            // Add services to the container.
-            builder.Services.AddAuthorization();
+            // Налаштування JWT Аутентифікації
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Secret"]!))
+                    };
+                });
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            builder.Services.AddAuthorization();
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
@@ -26,9 +43,9 @@ namespace Nutrio
 
             app.UseHttpsRedirection();
 
+            // ВАЖЛИВО: UseAuthentication має бути ПЕРЕД UseAuthorization
+            app.UseAuthentication();
             app.UseAuthorization();
-
-          
 
             app.Run();
         }
