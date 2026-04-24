@@ -7,6 +7,7 @@ using Nutrio.Infrastructure.Authentication; // Додано для JwtTokenGener
 using Nutrio.Infrastructure.Persistence;
 using Nutrio.Infrastructure.Persistence.Repositories;
 using Nutrio.Infrastructure.Security; // Додано для PasswordHasher
+using Nutrio.Application.Commands.Auth.Google;
 
 namespace Nutrio.Infrastructure;
 
@@ -29,6 +30,7 @@ public static class DependencyInjection
         // 3. Реєструємо сервіси Безпеки та Авторизації
         services.AddSingleton<IPasswordHasher, PasswordHasher>(); // Singleton, бо він не має стану (state)
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>(); // Scoped, бо використовує IConfiguration
+        services.AddScoped<IGoogleTokenValidator, GoogleTokenValidator>();
 
         return services;
     }
