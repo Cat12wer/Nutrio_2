@@ -27,15 +27,18 @@ public class Repository<T, TId> : IRepository<T, TId> where T : class
     public virtual async Task AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
+        await _context.SaveChangesAsync(); // ОДОВ'ЯЗКОВО ДОДАТИ!
     }
 
     public virtual void Update(T entity)
     {
         _dbSet.Update(entity);
+        _context.SaveChanges(); // ОДОВ'ЯЗКОВО ДОДАТИ!
     }
 
     public virtual void Delete(T entity)
     {
         _dbSet.Remove(entity);
+        _context.SaveChanges(); // ОДОВ'ЯЗКОВО ДОДАТИ!
     }
 }

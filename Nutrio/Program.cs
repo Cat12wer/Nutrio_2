@@ -63,6 +63,13 @@ namespace Nutrio
                 });
             });
 
+            builder.Services.AddInfrastructure(builder.Configuration);
+
+            builder.Services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssembly(typeof(Nutrio.Application.Commands.Auth.Register.RegisterUserCommand).Assembly));
+           
+            builder.Services.AddControllers();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
