@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nutrio.Application.Commands.Journal.UpdateFoodEntry; // Переконайся, що using'и відповідають твоїй структурі
+// Виправлені using'и: Add та Delete тепер правильно тягнуться з Commands, а не з Queries!
+using Nutrio.Application.Commands.Journal.AddFoodEntry;
+using Nutrio.Application.Commands.Journal.DeleteFoodEntry;
+using Nutrio.Application.Commands.Journal.UpdateFoodEntry;
 using Nutrio.Application.Queries.Journal.Activity;
-using Nutrio.Application.Queries.Journal.AddFoodEntry;
-using Nutrio.Application.Queries.Journal.DeleteFoodEntry;
 using Nutrio.Application.Queries.Journal.Meals;
 using Nutrio.Application.Queries.Journal.Nutrients;
 using Nutrio.Application.Queries.Journal.Products;
-
 namespace Nutrio.Controllers;
 
 [Authorize] // Захищаємо контролер, доступ тільки з JWT токеном

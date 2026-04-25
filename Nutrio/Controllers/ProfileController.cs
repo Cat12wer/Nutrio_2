@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nutrio.Application.Commands.Profile.UpdateProfile;
-using Nutrio.Application.Commands.Users.CompleteOnboarding;
+// Виправлені using'и:
+using Nutrio.Application.Commands.Profile.UpdateProfile; // (Після перенесення папки в Commands)
+using Nutrio.Application.Commands.Onboarding; // Тепер відповідає папці та хендлеру
 using Nutrio.Application.Queries.Profile.GetUserProfile;
-
 namespace Nutrio.Controllers;
 
 [Authorize] // Захищаємо ВЕСЬ контролер: сюди неможливо достукатися без JWT токена
