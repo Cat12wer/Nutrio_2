@@ -1,7 +1,10 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi; // 🔴 ЗМІНА 1: Більше немає ".Models"
 using Nutrio.Infrastructure;
+using Nutrio.Middleware;
+using Scalar.AspNetCore;
 
 namespace Nutrio
 {
@@ -11,10 +14,10 @@ namespace Nutrio
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Підключаємо наш шар інфраструктури
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddControllers();
 
-            // Налаштування JWT Аутентифікації
+            // Налаштування JWT
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -32,20 +35,52 @@ namespace Nutrio
                 });
 
             builder.Services.AddAuthorization();
-            builder.Services.AddOpenApi();
+
+            // 🔴 ЗМІНА 2: Новий синтаксис OpenAPI для .NET 10
+            builder.Services.AddOpenApi(options =>
+            {
+                options.AddDocumentTransformer((document, context, cancellationToken) =>
+                {
+                    document.Components ??= new OpenApiComponents();
+
+                    // Реєструємо схему Bearer
+                    document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                        Description = "Введіть свій JWT токен сюди (слово Bearer писати НЕ треба)"
+                    });
+
+                    // Застосовуємо вимогу безпеки (Новий синтаксис через OpenApiSecuritySchemeReference)
+                    document.SecurityRequirements.Add(new OpenApiSecurityRequirement
+                    {
+                        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+                    });
+
+                    return Task.CompletedTask;
+                });
+            });
 
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.MapScalarApiReference(options =>
+                {
+                    options.WithTitle("Nutrio API")
+                           .WithTheme(ScalarTheme.DeepSpace)
+                           .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Axios);
+                });
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-            // ВАЖЛИВО: UseAuthentication має бути ПЕРЕД UseAuthorization
             app.UseAuthentication();
             app.UseAuthorization();
+            app.MapControllers();
 
             app.Run();
         }

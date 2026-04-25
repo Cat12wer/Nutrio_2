@@ -67,12 +67,16 @@ public class JournalController : BaseController
 
     // 5. ОНОВИТИ ВАГУ (ГРАМИ) ЇЖІ: PUT /api/journal/entries/{id}
     [HttpPut("entries/{id:guid}")]
-    public async Task<IActionResult> UpdateFoodEntry(Guid id, [FromBody] UpdateFoodEntryCommandDTO dto)
+    public async Task<IActionResult> UpdateFoodEntry(Guid id, [FromBody] UpdateFoodEntryRequest request)
     {
         // Передаємо UserId для перевірки, щоб ніхто не міг змінити чужий запис
-        var command = new UpdateFoodEntryCommand(GetUserId(), id, dto.Grams);
-        var result = await _mediator.Send(command);
-        return Ok(result);
+        var command = new UpdateFoodEntryCommand(GetUserId(), id, request.Grams);
+
+        // Просто чекаємо виконання (БЕЗ var result = ...)
+        await _mediator.Send(command);
+
+        // Повертаємо 200 OK без тіла відповіді (БЕЗ result)
+        return Ok();
     }
 
     // 6. ВИДАЛИТИ ЇЖУ: DELETE /api/journal/entries/{id}
@@ -94,4 +98,6 @@ public class JournalController : BaseController
         var result = await _mediator.Send(query);
         return Ok(result);
     }
+
+    public record UpdateFoodEntryRequest(decimal Grams);
 }

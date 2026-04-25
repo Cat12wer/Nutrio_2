@@ -1,14 +1,28 @@
 ﻿using MediatR;
 using Nutrio.Domain.Enums;
 
-namespace Nutrio.Application.Commands.Users.CompleteOnboarding;
+namespace Nutrio.Application.Commands.Onboarding; // Виправлений простір імен
 
+// 1. DTO: те, що приходить з фронтенду (без UserId)
 public record CompleteOnboardingDTO(
     string Name,
     string LastName,
-    Guid UserId,          // Отримується з JWT токена на рівні API контролера
     Sex Sex,
-    DateTime DateOfBirth, // На макеті "Вік", але на бекенд краще передавати дату народження
+    DateTime DateOfBirth,
+    int Height,
+    decimal CurrentWeight,
+    decimal TargetWeight,
+    WeightGoal WeightGoal,
+    ActivityLevel ActivityLevel
+);
+
+// 2. Command: те, що йде в MediatR (з UserId)
+public record CompleteOnboardingCommand(
+    Guid UserId,
+    string Name,
+    string LastName,
+    Sex Sex,
+    DateTime DateOfBirth,
     int Height,
     decimal CurrentWeight,
     decimal TargetWeight,
