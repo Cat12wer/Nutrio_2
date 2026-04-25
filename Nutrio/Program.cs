@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi; // 🔴 ЗМІНА 1: Більше немає ".Models"
+using Microsoft.OpenApi; 
 using Nutrio.Infrastructure;
 using Nutrio.Middleware;
 using Scalar.AspNetCore;
@@ -36,12 +36,12 @@ namespace Nutrio
 
             builder.Services.AddAuthorization();
 
-            // 🔴 ЗМІНА 2: Новий синтаксис OpenAPI для .NET 10
             builder.Services.AddOpenApi(options =>
             {
                 options.AddDocumentTransformer((document, context, cancellationToken) =>
                 {
                     document.Components ??= new OpenApiComponents();
+                    document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
 
                     // Реєструємо схему Bearer
                     document.Components.SecuritySchemes.Add("Bearer", new OpenApiSecurityScheme
@@ -53,7 +53,8 @@ namespace Nutrio
                     });
 
                     // Застосовуємо вимогу безпеки (Новий синтаксис через OpenApiSecuritySchemeReference)
-                    document.SecurityRequirements.Add(new OpenApiSecurityRequirement
+                     document.Security ??= new List<OpenApiSecurityRequirement>();
+                    document.Security.Add(new OpenApiSecurityRequirement
                     {
                         [new OpenApiSecuritySchemeReference("Bearer", document)] = []
                     });
