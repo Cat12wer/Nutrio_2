@@ -19,9 +19,6 @@ public class NutrioDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        // Цей магічний рядок автоматично знайде всі класи конфігурацій 
-        // (такі як UserConfiguration) у цій збірці і застосує їх!
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

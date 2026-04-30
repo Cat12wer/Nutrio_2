@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AI\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Nutrio.Application\Nutrio.Application.csproj" />
     <ProjectReference Include="..\Nutrio_Domain\Nutrio_Domain\Nutrio.Domain.csproj" />
   </ItemGroup>
